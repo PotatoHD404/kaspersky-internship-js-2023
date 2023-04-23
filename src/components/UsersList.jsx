@@ -9,10 +9,25 @@ function UsersList() {
 
     useEffect(() => {
         // Здесь вы должны подставить свой собственный URL для сервера, который предоставляет данные JSON.
-        axios.get("https://your-json-server-url/users").then((response) => {
+        axios.get("url").then((response) => {
             setUsers(response.data);
             setSortedUsers(response.data);
         });
+        setUsers([{
+            id: 1,
+            name: "a",
+            group: "g"}, {
+            id: 2,
+            name: "b",
+            group: "gg"}])
+        setSortedUsers([{
+            id: 1,
+            name: "a",
+            group: "g"}, {
+            id: 2,
+            name: "b",
+            group: "gg"}])
+
     }, []);
 
     const handleSearch = (event) => {
