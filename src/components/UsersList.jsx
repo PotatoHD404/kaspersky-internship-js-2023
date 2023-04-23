@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
+import { faker } from '@faker-js/faker';
 import UserCard from "./UserCard";
 
 function UsersList() {
@@ -9,24 +10,28 @@ function UsersList() {
 
     useEffect(() => {
         // Здесь вы должны подставить свой собственный URL для сервера, который предоставляет данные JSON.
-        axios.get("url").then((response) => {
-            setUsers(response.data);
-            setSortedUsers(response.data);
-        });
-        setUsers([{
-            id: 1,
-            name: "a",
-            group: "g"}, {
-            id: 2,
-            name: "b",
-            group: "gg"}])
-        setSortedUsers([{
-            id: 1,
-            name: "a",
-            group: "g"}, {
-            id: 2,
-            name: "b",
-            group: "gg"}])
+        // axios.get("url").then((response) => {
+        //     setUsers(response.data);
+        //     setSortedUsers(response.data);
+        // });
+        const generateUsers = () => {
+            const users = [];
+            const groups = ['groupA', 'groupB', 'groupC', 'groupD'];
+
+            for (let i = 1; i <= 300; i++) {
+                users.push({
+                    id: i,
+                    name: faker.name.firstName(),
+                    group: faker.helpers.arrayElement(groups)
+                });
+            }
+            return users;
+        };
+        const generatedUsers = generateUsers();
+        setUsers(generatedUsers);
+
+        const sorted = [...generatedUsers].sort((a, b) => a.group.localeCompare(b.group) || a.name.localeCompare(b.name));
+        setSortedUsers(sorted);
 
     }, []);
 
